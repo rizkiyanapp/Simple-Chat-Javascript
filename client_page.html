@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Simple Chat | 1301140181</title>
+
+    <!-- Bootstrap -->
+    <link href="bs/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      #chatBox { list-style-type: none; margin: 0; padding: 0; }
+      #chatBox li { padding: 5px 10px; }
+      #chatBox li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+
+  <body style="background-color: #f7f7f9">
+    <div class="container">
+      <div class="col-md-6 col-md-offset-3" style="margin-top:50px">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="row">
+              <div class="form-group col-md-10">
+                <input type="text" class="form-control" id="inputUsername" autocomplete="off" placeholder="Set username, if not will automatically set as anonymous.">
+              </div>
+              <button id="btnSetUsername" type="button" class="btn btn-primary">SET</button>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <div class="panel-tittle">CHAT BOX</div>
+          </div>
+          <div class="panel-body" style="min-height: 250px; max-height: 250px; overflow-y: scroll;">
+            <ul id="chatBox"></ul>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-body">
+            <form action="">
+              <div class="row">
+                <div class="form-group col-md-10">
+                  <input type="text" class="form-control" id="inputMessages" autocomplete="off" placeholder="Text message here..." disabled="disabled">
+                </div>
+                <button id="btnSend" type="submit" class="btn btn-primary" disabled="disabled">SEND</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      var username = "";
+      $('#btnSetUsername').on('click', function(){
+        document.getElementById('btnSend').disabled = false;
+        document.getElementById('inputMessages').disabled = false;
+        document.getElementById('btnSetUsername').disabled = true;
+        username = $('#inputUsername').val();
+        if (username == "") {
+          username = "Anonymous: ";
+        }
+        else {
+          username = username + ": ";
+        }
+        msg = "*** " + username + " joined the group. ***";
+        socket.emit('message', msg);
+      });
+      // SEND MESSAGE
+      $('form').submit(function(event){
+        event.preventDefault();
+        var msg = $('#inputMessages').val();
+        msg = username + msg;
+        socket.emit('message', msg);
+        $('#inputMessages').val('');
+        return false;
+      });
+      // WRITE MESSAGE ON HTML
+      socket.on('message', function(msg){
+        $('#chatBox').append($('<li>').text(msg));
+      });
+    </script>
+  </body>
+</html>
