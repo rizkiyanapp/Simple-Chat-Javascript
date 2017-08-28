@@ -10,8 +10,8 @@ var userCount = 0;
 app.use(express.static(path.join(__dirname + '/static')));
 
 // SERVER INIT
-http.listen(8000, function(){
-  console.log('Server running at *:8000');
+http.listen(5000, function(){
+  console.log('Server running at *:5000');
 });
 
 // GET HTML FILES
