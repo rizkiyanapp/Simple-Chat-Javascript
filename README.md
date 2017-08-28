@@ -1,5 +1,5 @@
 ## Simple-Chat-Javascript
-[Simple Chat Application using Javascript](https://nameless-journey-54302.herokuapp.com/)
+Simple Chat Application using Javascript
 
 ### Requirements
 * Javascript
@@ -8,6 +8,9 @@
 * ExpressJS
 
 ### Basic Installation
+Go to https://nameless-journey-54302.herokuapp.com/
+
+or
 ```
 npm install express --save
 npm install socket.io --save
