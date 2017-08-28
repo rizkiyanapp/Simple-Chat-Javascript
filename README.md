@@ -1,5 +1,5 @@
 ## Simple-Chat-Javascript
-Simple Chat Application using Javascript [link](https://nameless-journey-54302.herokuapp.com/)
+[Simple Chat Application using Javascript](https://nameless-journey-54302.herokuapp.com/)
 
 ### Requirements
 * Javascript
