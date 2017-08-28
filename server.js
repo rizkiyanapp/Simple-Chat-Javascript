@@ -10,7 +10,7 @@ var userCount = 0;
 app.use(express.static(path.join(__dirname + '/static')));
 
 // SERVER INIT
-http.listen(5000, function(){
+http.listen(process.env.PORT || 5000, function(){
   console.log('Server running at *:5000');
 });
 
